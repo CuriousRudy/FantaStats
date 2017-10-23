@@ -1,0 +1,35 @@
+team_id,city,name,active
+SD,San Diego,Chargers,False
+LAC,Los Angeles,Chargers,True
+ARI,Arizona,Cardinals,True
+ATL,Atlanta,Falcons,True
+BAL,Baltimore,Ravens,True
+BUF,Buffalo,Bills,True
+CAR,Carolina,Panthers,True
+CHI,Chicago,Bears,True
+CIN,Cincinnati,Bengals,True
+CLE,Cleveland,Browns,True
+DAL,Dallas,Cowboys,True
+DEN,Denver,Broncos,True
+DET,Detroit,Lions,True
+GB,Green Bay,Packers,True
+HOU,Houston,Texans,True
+IND,Indianapolis,Colts,True
+JAC,Jacksonville,Jaguars,True
+KC,Kansas City,Chiefs,True
+LA,Los Angeles,Rams,True
+MIA,Miami,Dolphins,True
+MIN,Minnesota,Vikings,True
+NE,New England,Patriots,True
+NO,New Orleans,Saints,True
+NYG,Giants,New York Giants,True
+NYJ,Jets,New York Jets,True
+OAK,Oakland,Raiders,True
+PHI,Philadelphia,Eagles,True
+PIT,Pittsburgh,Steelers,True
+SEA,Seattle,Seahawks,True
+SF,San Francisco,49ers,True
+STL,St. Louis,Rams,False
+TB,Tampa Bay,Buccaneers,True
+TEN,Tennessee,Titans,True
+WAS,Washington,Redskins,True
