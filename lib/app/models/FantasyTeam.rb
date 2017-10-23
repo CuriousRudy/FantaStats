@@ -9,5 +9,6 @@ def update_team_with_roster(roster)
   roster.each do |fantasy_player|
     fantasy_player.fantasy_id = self.id
   end
+end
 
 end
