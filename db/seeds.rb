@@ -23,7 +23,7 @@ games = CSV.parse(games)
 games.shift
 
 games.each do |row|
-  Game.create(:game_id => row[0].to_int, :season => row[4].to_int)
+  Game.create(:game_id => row[0].to_i, :season => row[4].to_i)
 end
 
 stats = File.read("./db/seeds/stats.csv")
@@ -31,6 +31,6 @@ stats = CSV.parse(stats)
 stats.shift
 
 stats.each do |row|
-  Stats.create(:fumbles => row[0], :pass_tds => row[1], :pass_twopts => row[2], :pass_yds => row[3], :pass_int => row[4], :rec_yds => row[5],  :rec_tds => row[6],
+  Stat.create(:fumbles => row[0], :pass_tds => row[1], :pass_twopts => row[2], :pass_yds => row[3], :pass_int => row[4], :rec_yds => row[5],  :rec_tds => row[6],
      :rec_twopts => row[7], :rush_yds => row[8], :rush_tds => row[9], :rush_twopts => row[10], :game_id => row[11], :player_id => row[12])
 end

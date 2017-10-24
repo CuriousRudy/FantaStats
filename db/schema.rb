@@ -10,6 +10,48 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 5) do
+
+  create_table "fantasy_teams", force: :cascade do |t|
+    t.string "name"
+    t.string "owner"
+  end
+
+  create_table "games", force: :cascade do |t|
+    t.integer "game_id"
+    t.integer "season"
+  end
+
+  create_table "players", force: :cascade do |t|
+    t.integer "player_id"
+    t.string "full_name"
+    t.string "team_id"
+    t.string "position"
+    t.string "status"
+    t.integer "fantasy_id"
+  end
+
+  create_table "stats", force: :cascade do |t|
+    t.integer "fumbles"
+    t.integer "pass_tds"
+    t.integer "pass_twopts"
+    t.integer "pass_yds"
+    t.integer "pass_int"
+    t.integer "rec_yds"
+    t.integer "rec_tds"
+    t.integer "rec_twopts"
+    t.integer "rush_yds"
+    t.integer "rush_tds"
+    t.integer "rush_twopts"
+    t.integer "game_id"
+    t.integer "player_id"
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.string "abbrev"
+    t.string "city"
+    t.string "name"
+    t.boolean "active"
+  end
 
 end
