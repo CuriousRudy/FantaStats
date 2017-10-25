@@ -64,7 +64,7 @@ class Player < ActiveRecord::Base
     self.find_season_games(season).each do |game|
       array_of_weekly_scores << game.stats.find_by(player_id: self.id).score
     end
-    binding.pry
+    #binding.pry
     standard_deviation(array_of_weekly_scores) / ppg_average(season)
   end
 
