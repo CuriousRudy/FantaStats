@@ -16,7 +16,7 @@ class Player < ActiveRecord::Base
     find_season_games(season).each do |game|
       stats = Stat.where(game_id: game.game_id, player_id: self.id).first
         total += stats.score
-        binding.pry
+        #binding.pry
     end
     total
   end

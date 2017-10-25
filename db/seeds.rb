@@ -23,7 +23,7 @@ games = CSV.parse(games)
 games.shift
 
 games.each do |row|
-  Game.create(:game_id => row[0].to_i, :season => row[4].to_i)
+  Game.create(:game_id => row[0].to_i, :week => row[2].to_i, :season => row[4].to_i)
 end
 
 stats = File.read("./db/seeds/stats.csv")
