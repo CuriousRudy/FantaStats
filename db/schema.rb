@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 5) do
 
   create_table "games", force: :cascade do |t|
     t.integer "game_id"
+    t.integer "week"
     t.integer "season"
   end
 
