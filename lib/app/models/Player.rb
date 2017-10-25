@@ -26,6 +26,14 @@ class Player < ActiveRecord::Base
     Player.where(position: position).each do |player|
       all_players_of_position_w_points << [player, player.points_by_season(year)] #unless player.points_by_season(year) == 0
     end
-    all_players_of_position_w_points
+    all_players_of_position_w_points.sort_nested_array
   end
+
+
+  private
+
+  def sort_nested_array(nested_array)
+    array.sort {|a, b| b[1] <=> a[1]}
+  end
+
 end
