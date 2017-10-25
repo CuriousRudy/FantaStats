@@ -23,7 +23,6 @@ ActiveRecord::Schema.define(version: 5) do
   end
 
   create_table "players", force: :cascade do |t|
-    t.integer "player_id"
     t.string "full_name"
     t.string "team_id"
     t.string "position"
@@ -48,7 +47,7 @@ ActiveRecord::Schema.define(version: 5) do
   end
 
   create_table "teams", force: :cascade do |t|
-    t.string "abbrev"
+    t.string "team_id"
     t.string "city"
     t.string "name"
     t.boolean "active"
