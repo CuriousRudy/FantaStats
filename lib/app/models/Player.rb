@@ -51,7 +51,7 @@ class Player < ActiveRecord::Base
   end
   #player.points_by_season(2015)
 
-  def self.find_by_position_and_season(position, season)
+  def self.top_5_by_position_for_season(position, season)
     all_players_of_position_w_points = Player.where(position: position).map do |player|
     [player.id, player.points_by_season(season)] if player.points_by_season(season)
     end
