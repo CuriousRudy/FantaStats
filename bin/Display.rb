@@ -50,6 +50,7 @@ class Display
 
     # stats for every game
     puts "His stats for each game were: "
+<<<<<<< HEAD
     puts ""
     player.find_season_games(season).each do |game|
       binding.pry
@@ -57,6 +58,14 @@ class Display
       self.display_a_stat(Stat.find_by(game_id: game.id))
     end
     nil
+=======
+    player.find_season_games(season).each do |game|
+      self.display_a_game(game)
+      self.display_a_stat(Stat.find_by(game_id: game.id))
+      puts ""
+    end
+    puts ""
+>>>>>>> display
   end
 
 
