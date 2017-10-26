@@ -47,25 +47,14 @@ class Display
   def games_stats_for_games_played_in_a_season(player, season)
     #games played before displaying data for all games played
     puts player.full_name.to_s + " has played " + player.season_game_count(season).to_s + " game(s) out of 16 in " + season.to_s + "."
-
     # stats for every game
     puts "His stats for each game were: "
-<<<<<<< HEAD
-    puts ""
-    player.find_season_games(season).each do |game|
-      binding.pry
-      self.display_a_game(game)
-      self.display_a_stat(Stat.find_by(game_id: game.id))
-    end
-    nil
-=======
     player.find_season_games(season).each do |game|
       self.display_a_game(game)
       self.display_a_stat(Stat.find_by(game_id: game.id))
       puts ""
     end
     puts ""
->>>>>>> display
   end
 
 

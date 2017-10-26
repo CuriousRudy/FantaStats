@@ -1,13 +1,15 @@
+#!/usr/bin/env ruby
+require 'pry'
 require_relative '../config/environment.rb'
+
 def run
   "welcome" #welcome_message
   puts "What would you like to do:"
   main_menu
-  input = gets.chomp
 end
 
 def main_menu
-  "options here"#menu_tree
+  menu_tree
   input = gets.chomp
   case input
   when "1"
