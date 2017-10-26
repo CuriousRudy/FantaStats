@@ -1,34 +1,40 @@
-#!/usr/bin/env ruby
+ #!/usr/bin/env ruby
 require 'pry'
 require_relative '../config/environment.rb'
 
 def run
-  "welcome" #welcome_message
-  puts "What would you like to do:"
+  display = Display.new
+  display.welcome_message
+  display.menu_tree
   main_menu
 end
 
 def main_menu
-  menu_tree
+  display = Display.new
   input = gets.chomp
   case input
-  when "1"
+    when "1"
       fantasy_menu
     when "2"
       stats_menu
     when "3"
     top_scoring_menu
+  when "exit"
+    main_menu
+  else
+    main_menu
     end
   end
 
   def fantasy_menu
+    display = Display.new
     my_team = make_fantasy_team
-    fantasy_team_menu
+    display.fantasy_team_menu
     puts "What would you like to do:"
     input = gets.chomp
     case input
     when "1"
-      my_team.my_roster
+      display.show_roster(my_team)
     when "2"
       roster = build_roster
       my_team.update_team_with_roster(roster)
@@ -40,15 +46,16 @@ def main_menu
   end
 
   def stats_menu
+    display = Display.new
     player = Player.find_by(full_name: get_player)
-    player_stats_menu
+    display.player_stats_menu
     puts "What would you like to do"
     input = gets.chomp
     case input
     when "1"
-        player.points_by_season(get_season)
+        display.games_stats_for_games_played_in_a_season(player, get_season)
       when "2"
-        player.ppg_average(get_season)
+        puts player.ppg_average(get_season)
       when "3"
         player.player_stat_by_week(get_week, get_season)
       when "4"
@@ -63,17 +70,18 @@ def main_menu
     end
 
     def top_scoring_menu
+      display = Display.new
       puts "What information would you like?"
-      game_menu
+      display.game_stats_menu
       input = gets.chomp
       case input
-      when "1"
-        game = get_game
-        Player.find(game.highest_scoring_player[0])
-      when "2"
-        Game.mvp_of_the_week(get_week, get_season)
-      when "3"
-        Game.top_5_weekly(get_week, get_season)
+        when "1"
+          game = get_game
+          Player.find(game.highest_scoring_player[0])
+        when "2"
+          Game.mvp_of_the_week(get_week, get_season)
+        when "3"
+          Game.top_5_weekly(get_week, get_season)
       end
     end
 
@@ -86,8 +94,8 @@ def main_menu
         puts game
       end
       puts "Which game would you like to look at?"
-      input gets.chomp
-      game = game[input]
+      input = gets.chomp
+      game = game[input.to_i].id
     end
 
     def make_fantasy_team
@@ -128,3 +136,6 @@ def main_menu
       input = gets.chomp
       input
     end
+
+
+# run
