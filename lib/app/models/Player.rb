@@ -24,7 +24,7 @@ class Player < ActiveRecord::Base
     self.points_by_season(season) / self.season_game_count(season)
   end
 
-  def find_by_week(week, season)
+  def find_game_by_week(week, season) #finds a players game on a given week
     if self.games.where(week: week, season: season).empty?
       "#{self.full_name} did not play week #{week}!"
     else
@@ -32,26 +32,30 @@ class Player < ActiveRecord::Base
     end
   end
 
-  def player_stat_by_week(week, season)
-    game = self.find_by_week(week, season)
-    players_stats = Stat.find_by(game_id: 1540, player_id: 4123)
+  def player_stat_by_week(week, season) #shows stat for a given week using game output from find_game_by_week
+    game = self.find_game_by_week(week, season).first
+    players_stats = Stat.where(game_id: game.id, player_id: self.id).first
     players_stats
   end
 
+  def fantasy_score_by_week(week, season) #scores the stat from above methods
+    stats = self.player_stat_by_week(week, season)
+    stats.score
+  end
 
 
-  def points_by_season(season) #works
+  def points_by_season(season) #shows a players score by season
     total = 0
     self.games.where(season: season).each do |game|
       stats = Stat.where(game_id: game.game_id, player_id: self.id).first
         total += stats.score
         #binding.pry
     end
-    total#{}"#{self.full_name} scored #{total} points during the #{season} season."
+    total #{}"#{self.full_name} scored #{total} points during the #{season} season."
   end
-  #player.points_by_season(2015)
 
-  def self.top_5_by_position_for_season(position, season)
+
+  def self.top_5_by_position_for_season(position, season)  #top 5 players in a season by position
     all_players_of_position_w_points = Player.where(position: position).map do |player|
     [player.id, player.points_by_season(season)] if player.points_by_season(season)
     end
@@ -69,9 +73,30 @@ class Player < ActiveRecord::Base
   end
 
 
+  def self.mvp_of_the_week(week, season)
+    this_week = Game.where(week: week, season: season).map do |game|
+      game.highest_scoring_player
+    end
+    mvp = sort_nested_array(this_week).first #use first(5) for top 5 players of a week
+  end #Player.find(mvp[0]) is the player that is the mvp.
+
+  # Player.find(Game.mvp_of_the_week(3,2014)[0])
+
+  def self.top_5_weekly(week, season)
+    this_week = Game.where(week: week, season: season).map do |game|
+      game.highest_scoring_player
+    end
+    mvp = sort_nested_array(this_week).first(5) #.map {|array| Player.find(array[0])}
+  end
+
+
   private
 
   def self.sort_nested_array(nested_array)
+    nested_array.sort { |a, b| b[1] <=> a[1] }
+  end
+
+  def sort_nested_array(nested_array)
     nested_array.sort { |a, b| b[1] <=> a[1] }
   end
 
