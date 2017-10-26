@@ -78,15 +78,15 @@ class Player < ActiveRecord::Base
       game.highest_scoring_player
     end
     mvp = sort_nested_array(this_week).first #use first(5) for top 5 players of a week
-  end #Player.find(mvp[0]) is the player that is the mvp.
-
+      Player.find(mvp[0]) #is the player that is the mvp.
+  end
   # Player.find(Game.mvp_of_the_week(3,2014)[0])
 
   def self.top_5_weekly(week, season)
     this_week = Game.where(week: week, season: season).map do |game|
       game.highest_scoring_player
     end
-    mvp = sort_nested_array(this_week).first(5) #.map {|array| Player.find(array[0])}
+    mvp = sort_nested_array(this_week).first(5).map {|array| Player.find(array[0])}
   end
 
 
