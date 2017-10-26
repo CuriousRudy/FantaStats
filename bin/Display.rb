@@ -1,3 +1,4 @@
+
 class Display
 
   def welcome_message
@@ -16,9 +17,9 @@ class Display
   def fantasy_team_menu
     puts ""
     puts "1. Display Roster"
-    puts "2. Add Full Team"
-    puts "3. Add to Roster"
-    puts "4. Drop from Roster"
+    puts "2. Add to Roster"
+    puts "3. Drop from Roster"
+    # puts "4. Add Full Team"
   end
 
   def player_stats_menu
@@ -34,6 +35,7 @@ class Display
   def game_stats_menu ## Asks for a game
     puts ""
     puts "1. MVP of a Game"
+    puts "2. MVP of the Week"
   end
 
   def show_roster(fantasy_team)
@@ -67,25 +69,39 @@ class Display
     else
       self.display_a_game_and_stat(player.find_game_by_week(week, season).first)
     end
+    puts ""
   end
 
   def fantasy_points_earned_in_a_week(player, week, season)
-    puts player.full_name + " earned " + fantasy_score_by_week(week, season) + " points in week " + week + " of the " + season + " season."
+    puts player.full_name + " earned " + player.fantasy_score_by_week(week, season).to_s + " points in week " + week.to_s + " of the " + season.to_s + " season."
+    puts ""
   end
 
-  def top_5_for_a_position_in_a_season(season, position)
-    puts "The top 5 fantasy players at " + position + " in the " + season + "season are:"
-    Player.top_5_for_a_position_in_a_season(position, season).each_with_index do |player, index|
-      puts (index + 1) + ". " + player.full_name + " - " + player.stat.score
+  def top_5_for_a_position_in_a_season(position, season)
+    # byebug
+    puts "The top 5 fantasy players at " + position + " in the " + season.to_s + " season are:"
+    Player.top_5_by_position_for_season(position, season).each.with_index do |player, index|
+      # byebug
+       puts "#{index + 1}. #{player.full_name} - #{player.points_by_season(season)}"
     end
+    puts ""
   end
 
   def mvp_of_a_game(game)
-    puts "The highest scoring player of this game is:" self.display_a_player(Player.find(game.highest_scoring_player[0]))
+    puts "The highest scoring player of this game is: #{Player.find(game.highest_scoring_player[0]).full_name}"
+  end
+
+  def mvp_of_the_week(week, season)
+    puts "The top 5 scoring players of week #{week} are:"
+    Player.top_5_weekly(week, season).each.with_index do |player, index|
+      puts "#{index + 1}. #{player.full_name}"
+    end
+    puts ""
   end
 
   def player_consistency_rating(player, season)
-    puts player.full_name + " had a consistency rating of " + consistency_rating(season).round(3) + "in the " + season + " season."
+    puts player.full_name + " had a consistency rating of " + player.consistency_rating(season).round(3).to_s + " in the " + season.to_s + " season."
+    puts ""
   end
 
   def display_a_player(player)
@@ -93,7 +109,7 @@ class Display
   end
 
   def display_a_fantasy_team(fantasy_team)
-    puts fantasy_team.name.to_s + " - Owner: " + fantasy_team.owner.to_s
+    puts fantasy_team.name + " - Owner: " + fantasy_team.owner
   end
 
   def display_a_game(game)
