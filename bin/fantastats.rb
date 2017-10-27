@@ -104,10 +104,10 @@ def main_menu
 #helper methods for ths CLI
 
     def make_fantasy_team
-      puts "What is your name?"
-      owner = gets.chomp
       puts "What is your team name?"
       name = gets.chomp
+      puts "What is your name?"
+      owner = gets.chomp
       your_team = FantasyTeam.create(name: name, owner: owner)
       your_team
     end
