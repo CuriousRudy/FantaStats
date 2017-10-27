@@ -5,13 +5,15 @@ class Display
     puts "FantaStats"
     puts "----------"
     puts "Fantasy Football Tracker Tool"
+    puts "============================="
   end
 
-  def menu_tree
+  def main_menu_tree
     puts "What would you like to do?"
-    puts "1. Fantasy Team"
-    puts "2. Player Menu"
-    puts "3. Game Stats"
+    puts "1. Fantasy Team Menu"
+    puts "2. Player Stats Menu"
+    puts "3. Game Stats Menu"
+    puts "============="
   end
 
   def fantasy_team_menu
@@ -19,6 +21,7 @@ class Display
     puts "1. Display Roster"
     puts "2. Add to Roster"
     puts "3. Drop from Roster"
+    puts "==================="
     # puts "4. Add Full Team"
   end
 
@@ -30,12 +33,14 @@ class Display
     puts "4. Fantasy Points Earned in a Week"
     puts "5. Top 5 for a Position in a Season"
     puts "6. Player Consistency Rating"
+    puts "============================"
   end
 
   def game_stats_menu ## Asks for a game
     puts ""
     puts "1. MVP of a Game"
     puts "2. MVP of the Week"
+    puts "==================="
   end
 
   def show_roster(fantasy_team)
@@ -44,26 +49,32 @@ class Display
     Player.where(fantasy_id: fantasy_team.id).each do |player|
       self.display_a_player(player)
     end
+    puts "===================================="
   end
 
   def games_stats_for_games_played_in_a_season(player, season)
     #games played before displaying data for all games played
-    puts player.full_name.to_s + " has played " + player.season_game_count(season).to_s + " game(s) out of 16 in " + season.to_s + "."
+    puts "#{player.full_name} has played #{player.season_game_count(season)} game(s) out of 16 in #{season}."
+    sleep 3
     # stats for every game
     puts "His stats for each game were: "
     player.find_season_games(season).each do |game|
+      sleep 1
       self.display_a_game_and_stat(game)
-      puts ""
+      puts "============================="
     end
     puts ""
   end
 
   def ppg_average(player, season)
-    puts "The points-per-game average for " + player.full_name + "in the " + season + " season was " + player.ppg_average(season) + "."
+    puts "The points-per-game average for #{player.full_name} in the #{season} season was #{player.ppg_average(season)}."
+    puts "========================================================================"
   end
 
   def player_stats_for_a_game_played(player, week, season)
     puts player.full_name + " stats for " + season + ", week " + week
+    puts "===================================="
+    sleep 2
     if player.find_game_by_week(week, season).first.is_a? String
       puts player.find_game_by_week(week, season)
     else
@@ -73,13 +84,14 @@ class Display
   end
 
   def fantasy_points_earned_in_a_week(player, week, season)
-    puts player.full_name + " earned " + player.fantasy_score_by_week(week, season).to_s + " points in week " + week.to_s + " of the " + season.to_s + " season."
-    puts ""
+    puts "#{player.full_name} earned #{player.fantasy_score_by_week(week, season)} points in week #{week} of the #{season} season."
+    puts "============================================================"
   end
 
   def top_5_for_a_position_in_a_season(position, season)
     # byebug
-    puts "The top 5 fantasy players at " + position + " in the " + season.to_s + " season are:"
+    puts "The top 5 fantasy players at #{position} in the #{season} season are:"
+    puts "calculating ..oO0Oo.."
     Player.top_5_by_position_for_season(position, season).each.with_index do |player, index|
       # byebug
        puts "#{index + 1}. #{player.full_name} - #{player.points_by_season(season)}"
@@ -88,7 +100,7 @@ class Display
   end
 
   def mvp_of_a_game(game)
-    puts "The highest scoring player of this game is: #{Player.find(game.highest_scoring_player[0]).full_name}"
+    puts "The highest scoring player of the game is: #{Player.find(game.highest_scoring_player[0]).full_name}"
   end
 
   def mvp_of_the_week(week, season)
@@ -100,16 +112,16 @@ class Display
   end
 
   def player_consistency_rating(player, season)
-    puts player.full_name + " had a consistency rating of " + player.consistency_rating(season).round(3).to_s + " in the " + season.to_s + " season."
-    puts ""
+    puts "#{player.full_name} had a consistency rating of #{player.consistency_rating(season).round(3)} in the #{season} season."
+    puts "===================================================================="
   end
 
   def display_a_player(player)
-    puts player.team_id.to_s + " - " + player.full_name.to_s + " - Position: " + player.position.to_s
+    puts "#{player.team_id} - #{player.full_name} - Position: #{player.position}"
   end
 
   def display_a_fantasy_team(fantasy_team)
-    puts fantasy_team.name + " - Owner: " + fantasy_team.owner
+    puts "#{fantasy_team.name} - Owner: #{fantasy_team.owner}"
   end
 
   def display_a_game(game)

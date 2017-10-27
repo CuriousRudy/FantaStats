@@ -10,7 +10,7 @@ end
 
 def main_menu
   display = Display.new
-  display.menu_tree
+  display.main_menu_tree
   input = gets.chomp
   case input
     when "1"
@@ -20,7 +20,10 @@ def main_menu
     when "3"
     top_scoring_menu
   when "exit"
-    main_menu
+    puts "Thanks for using FantaStats!"
+    puts "============================"
+    sleep 2
+    exit
   else
     main_menu
     end
@@ -33,19 +36,19 @@ def main_menu
     puts "What would you like to do:"
     input = gets.chomp
     case input
-    when "1"
-      display.show_roster($my_team)
-    # when "2"
-    #   roster = build_roster
-    #   $my_team.update_team_with_roster(roster)
-    #   display.show_roster($my_team)
-  when "2"
-      $my_team.add_to_roster(get_player)
-      display.show_roster($my_team)
+      when "1"
+        display.show_roster($my_team)
+      # when "2"
+      #   roster = build_roster
+      #   $my_team.update_team_with_roster(roster)
+      #   display.show_roster($my_team)
+    when "2"
+        $my_team.add_to_roster(get_player)
+        display.show_roster($my_team)
     when "3"
       $my_team.drop_from_roster(get_player)
       display.show_roster($my_team)
-    when "exit"
+    when "back"
       main_menu
       return
     end
@@ -62,7 +65,7 @@ def main_menu
       when "1"
           display.games_stats_for_games_played_in_a_season(player, get_season)
       when "2"
-          display.ppg_average(get_season)
+          display.ppg_average(player, get_season)
       when "3"
           display.player_stats_for_a_game_played(player, get_week, get_season)
       when "4"
@@ -72,9 +75,11 @@ def main_menu
            display.top_5_for_a_position_in_a_season(get_position, get_season)
       when "6"
           display.player_consistency_rating(player, get_season)
-      when "exit"
+      when "back"
         main_menu
+        return
       end
+      stats_menu
     end
 
     def top_scoring_menu
@@ -87,16 +92,16 @@ def main_menu
           display.mvp_of_a_game(get_game)
       when "2"
           display.mvp_of_the_week(get_week, get_season)
+      when "back"
+        main_menu
+        return
       end
+      top_scoring_menu
     end
 
 
 
 #helper methods for ths CLI
-
-    def get_game
-      game = Game.find_by(week:3,season:2013)
-    end
 
     def make_fantasy_team
       puts "What is your name?"
@@ -116,6 +121,13 @@ def main_menu
         input = gets.chomp
       end
       roster
+    end
+
+    def get_game
+      games = Game.where(week: get_week, season: get_season)
+      puts "Select a number between 1 and #{games.count}"
+      input = gets.chomp
+      games[input.to_i]
     end
 
 

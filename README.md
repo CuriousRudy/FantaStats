@@ -9,6 +9,11 @@ Features:
   * Users can view various player statistics and calculations.
   * Users can view game statistics
 
+#NOTE:
+Every Fantasy Football League has different rules as far as stat calculation for, and stats tracked. As of this version, the stats tracked are listed below, and the calculations for scoring
+is included in the /lib/app/FantasyScoring.rb module. If your league rules differ you can adjust the formulas accordingly. Feel free to fork and adapt these for your league!
+
+
 
 #User Guide
 
@@ -29,8 +34,8 @@ Player Stats Menu
 
 Game Stats Menu
 ---------------
-  1. MVP of the Game - Displays the player with the most points earned in a given game.
-  2. MVP of the Week - Displays the player with the most points earned in a given week.
+  1. MVP of the Game - Displays the player with the most points earned in a given game. Choose games by week, and select a game from the list
+  2. MVP of the Week - Displays the player with the most points earned in a given week across all games in the NFL.
 
 Stats Tracked
 -------------
